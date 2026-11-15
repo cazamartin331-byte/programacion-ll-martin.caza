@@ -1,0 +1,45 @@
+{% extends 'menu/base.html' %}
+{% block title %}Platos{% endblock %}
+{% block content %}
+<h1>Platos</h1>
+{% if perms.menu.add_plato %}<a class="btn" href="{% url 'plato_create' %}">Nuevo plato</a>{% endif %}
+<a class="btn" href="{% url 'home' %}">Volver al inicio</a>
+{% if perms.menu.view_categoria %}<a class="btn" href="{% url 'categoria_list' %}">Ir a Categorías</a>{% endif %}
+{% if perms.menu.view_ingrediente %}<a class="btn" href="{% url 'ingrediente_list' %}">Ir a Ingredientes</a>{% endif %}
+
+<form method="get" style="margin-top:1rem">
+    <input type="text" name="pista" value="{{ pista }}" placeholder="Nombre, ingrediente o categoría">
+    <select name="categoria">
+        <option value="">Todas las categorías</option>
+        {% for c in categorias %}
+        <option value="{{ c.id }}" {% if c.id|stringformat:"s" == categoria_id %}selected{% endif %}>{{ c.nombre }}</option>
+        {% endfor %}
+    </select>
+    <button class="btn" type="submit">Buscar</button>
+</form>
+
+<table>
+    <thead><tr><th>ID</th><th>Código</th><th>Plato</th><th>Categoría</th><th>Ingredientes</th><th>Precio</th><th>Registro</th><th>Estado</th><th>Acciones</th></tr></thead>
+    <tbody>
+    {% for p in platos %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.codigo }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.categoria }}</td>
+            <td>{% for i in p.ingredientes.all %}{{ i }}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</td>
+            <td>$ {{ p.precio }}</td>
+            <td>{{ p.fecha_registro|date:"d/m/Y" }}</td>
+            <td>{% if p.disponible %}Disponible{% else %}<span class="agotado">Agotado</span>{% endif %}</td>
+            <td>
+                {% if perms.menu.change_plato %}<a href="{% url 'plato_update' p.pk %}">Editar</a>{% endif %}
+                {% if perms.menu.delete_plato %}<a class="danger" href="{% url 'plato_delete' p.pk %}">Eliminar</a>{% endif %}
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="9">No hay platos.</td></tr>
+    {% endfor %}
+    </tbody>
+    <tfoot><tr><td colspan="9">Total: {{ platos|length }}</td></tr></tfoot>
+</table>
+{% endblock %}

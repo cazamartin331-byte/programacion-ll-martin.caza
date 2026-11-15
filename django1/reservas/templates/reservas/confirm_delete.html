@@ -1,0 +1,10 @@
+{% extends 'reservas/base.html' %}
+{% block content %}
+<h1>Eliminar</h1>
+<p>¿Seguro que quieres eliminar <strong>{{ objeto }}</strong>?</p>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn danger" type="submit">Sí, eliminar</button>
+    <a class="btn" href="{% url volver %}">Cancelar</a>
+</form>
+{% endblock %}

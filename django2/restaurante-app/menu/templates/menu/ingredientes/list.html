@@ -1,0 +1,26 @@
+{% extends 'menu/base.html' %}
+{% block title %}Ingredientes{% endblock %}
+{% block content %}
+<h1>Ingredientes</h1>
+{% if perms.menu.add_ingrediente %}<a class="btn" href="{% url 'ingrediente_create' %}">Nuevo ingrediente</a>{% endif %}
+<a class="btn" href="{% url 'home' %}">Volver al inicio</a>
+{% if perms.menu.view_plato %}<a class="btn" href="{% url 'plato_list' %}">Ir a Platos</a>{% endif %}
+<table>
+    <thead><tr><th>ID</th><th>Nombre</th><th>Alérgeno</th><th>Acciones</th></tr></thead>
+    <tbody>
+    {% for i in ingredientes %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.nombre }}</td>
+            <td>{{ i.es_alergeno|yesno:"Sí,No" }}</td>
+            <td>
+                {% if perms.menu.change_ingrediente %}<a href="{% url 'ingrediente_update' i.pk %}">Editar</a>{% endif %}
+                {% if perms.menu.delete_ingrediente %}<a class="danger" href="{% url 'ingrediente_delete' i.pk %}">Eliminar</a>{% endif %}
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="4">No hay ingredientes.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

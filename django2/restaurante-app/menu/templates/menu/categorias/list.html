@@ -1,0 +1,26 @@
+{% extends 'menu/base.html' %}
+{% block title %}Categorías{% endblock %}
+{% block content %}
+<h1>Categorías</h1>
+{% if perms.menu.add_categoria %}<a class="btn" href="{% url 'categoria_create' %}">Nueva categoría</a>{% endif %}
+<a class="btn" href="{% url 'home' %}">Volver al inicio</a>
+{% if perms.menu.view_plato %}<a class="btn" href="{% url 'plato_list' %}">Ir a Platos</a>{% endif %}
+<table>
+    <thead><tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr></thead>
+    <tbody>
+    {% for c in categorias %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.nombre }}</td>
+            <td>{{ c.descripcion }}</td>
+            <td>
+                {% if perms.menu.change_categoria %}<a href="{% url 'categoria_update' c.pk %}">Editar</a>{% endif %}
+                {% if perms.menu.delete_categoria %}<a class="danger" href="{% url 'categoria_delete' c.pk %}">Eliminar</a>{% endif %}
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="4">No hay categorías.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

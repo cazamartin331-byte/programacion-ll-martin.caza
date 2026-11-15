@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Menú del Restaurante{% endblock %}</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 960px; margin: 0 auto; padding: 1rem; color: #222; }
+        nav { display: flex; gap: 1rem; align-items: center; padding-bottom: .75rem; border-bottom: 1px solid #ccc; margin-bottom: 1rem; }
+        nav .spacer { flex: 1; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #ccc; padding: .5rem; text-align: left; }
+        th { background: #f3f3f3; }
+        .msg { padding: .5rem .75rem; border-radius: 4px; margin: .5rem 0; background: #e6f4ea; }
+        .msg.error { background: #fde8e8; }
+        .btn { display: inline-block; padding: .35rem .8rem; border: 1px solid #888; border-radius: 4px; text-decoration: none; color: inherit; background: #fafafa; cursor: pointer; }
+        .danger { color: #b00020; }
+        .agotado { color: #888; font-style: italic; }
+        footer { margin-top: 2rem; font-size: .85rem; color: #666; }
+        ul.errorlist { color: #b00020; padding-left: 1rem; }
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <nav>
+        <a href="{% url 'home' %}">Inicio</a>
+        {% if perms.menu.view_plato %}<a href="{% url 'plato_list' %}">Platos</a>{% endif %}
+        {% if perms.menu.view_categoria %}<a href="{% url 'categoria_list' %}">Categorías</a>{% endif %}
+        {% if perms.menu.view_ingrediente %}<a href="{% url 'ingrediente_list' %}">Ingredientes</a>{% endif %}
+        <span class="spacer"></span>
+        <span>{{ user.username }}</span>
+        <form action="{% url 'logout' %}" method="post">{% csrf_token %}<button class="btn" type="submit">Salir</button></form>
+    </nav>
+    {% endif %}
+
+    {% for m in messages %}
+        <div class="msg {{ m.tags }}">{{ m }}</div>
+    {% endfor %}
+
+    {% block content %}{% endblock %}
+
+    <footer>Menú de Restaurante — Programación II · Martin Caza</footer>
+</body>
+</html>

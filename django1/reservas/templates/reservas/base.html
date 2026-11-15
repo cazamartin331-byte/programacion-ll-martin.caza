@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Reservas{% endblock %}</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 1rem; }
+        nav { display: flex; gap: 1rem; border-bottom: 1px solid #ccc; padding-bottom: .75rem; margin-bottom: 1rem; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #ccc; padding: .5rem; text-align: left; }
+        th { background: #f3f3f3; }
+        .msg { padding: .5rem .75rem; background: #e6f4ea; border-radius: 4px; margin: .5rem 0; }
+        .btn { display: inline-block; padding: .35rem .8rem; border: 1px solid #888; border-radius: 4px; text-decoration: none; color: inherit; background: #fafafa; cursor: pointer; }
+        .danger { color: #b00020; }
+        footer { margin-top: 2rem; font-size: .85rem; color: #666; }
+        ul.errorlist { color: #b00020; padding-left: 1rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Inicio</a>
+        <a href="{% url 'reservas_list' %}">Reservas</a>
+        <a href="{% url 'mesas_list' %}">Mesas</a>
+        <a href="{% url 'clientes_list' %}">Clientes</a>
+    </nav>
+    {% for m in messages %}<div class="msg">{{ m }}</div>{% endfor %}
+    {% block content %}{% endblock %}
+    <footer>Django 1 — Programación II · Martin Caza</footer>
+</body>
+</html>

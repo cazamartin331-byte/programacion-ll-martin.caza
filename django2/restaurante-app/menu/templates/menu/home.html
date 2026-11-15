@@ -1,0 +1,11 @@
+{% extends 'menu/base.html' %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<h1>Menú del Restaurante</h1>
+<p>Bienvenido, {{ user.username }}.</p>
+<ul>
+    <li>Platos en el menú: <strong>{{ total_platos }}</strong> ({{ total_disponibles }} disponibles)</li>
+    <li>Categorías: <strong>{{ total_categorias }}</strong></li>
+    <li>Ingredientes: <strong>{{ total_ingredientes }}</strong></li>
+</ul>
+{% endblock %}

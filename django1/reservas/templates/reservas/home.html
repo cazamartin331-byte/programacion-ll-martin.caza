@@ -1,0 +1,9 @@
+{% extends 'reservas/base.html' %}
+{% block content %}
+<h1>Sistema de reservas</h1>
+<ul>
+    <li>Mesas: <strong>{{ total_mesas }}</strong></li>
+    <li>Clientes: <strong>{{ total_clientes }}</strong></li>
+    <li>Reservas pendientes: <strong>{{ pendientes }}</strong></li>
+</ul>
+{% endblock %}
