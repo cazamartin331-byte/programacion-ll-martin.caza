@@ -17,3 +17,12 @@ Repositorio con las prácticas y proyectos de la materia.
 - Python 3.x y Django 6.1.
 - SQLite por defecto; PostgreSQL opcional en `django2` mediante `.env`.
 - Cada proyecto tiene su propio `requirements.txt` y README con las instrucciones.
+
+## Evidencias y entrega
+
+- Los ejemplos por ejecutar están documentados en:
+  - [`django1/ejemplos.md`](django1/ejemplos.md)
+  - [`django2/restaurante-app/ejemplos.md`](django2/restaurante-app/ejemplos.md)
+- Las capturas de los ejemplos ejecutados deben adjuntarse en un PDF.
+- El Pull Request correspondiente debe entregarse en los comentarios de la tarea
+  o incluirse en la portada o página final del PDF.
